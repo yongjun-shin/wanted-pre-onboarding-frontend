@@ -1,11 +1,24 @@
 import Axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  const checkLoginStatus = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      navigate('/todo');
+    } else {
+      navigate('/signin');
+    }
+  };
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -37,8 +50,9 @@ export function Signin() {
           console.log(response.data);
 
           if(response.status === 200){
-            localStorage.setItem('jwt', response.data.jwt);
-            console.log(response.data.jwt);
+            const jwt = response.data.access_token
+            localStorage.setItem('jwt', jwt);
+            console.log(jwt);
             navigate('/todo');
           }
           else{

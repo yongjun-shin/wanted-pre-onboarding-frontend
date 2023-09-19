@@ -44,14 +44,14 @@ export function Todo() {
     setIsModifyMode(true);
   };
 
-  const cancelUpdate = () => {
+  const cancelUpdate = (e) => {
+    e.preventDefault();
     setModifyId(null);
     setModifyStr('');
     setIsModifyMode(false);
   };
 
   const updateTodo = (id, str, iscom) => {
-    console.log('hi');
     Axios.put(`https://www.pre-onboarding-selection-task.shop/todos/${id}`, {todo: str, isCompleted: iscom}, {headers: create_update_headers})
       .then((response)=>{
         console.log(response.data);
@@ -90,7 +90,7 @@ export function Todo() {
     <button data-testid="new-todo-add-button" onClick={createTodo}>추가</button>
     <div>
       {todolist.map((item) => (
-        <li key={item.id}>
+        <li key={item.id} className="list">
           <label>
             <input type="checkbox" checked={item.isCompleted} onChange={() => updateTodo(item.id, item.todo, !item.isCompleted)} />
             {modifyId === item.id && isModifyMode ? (

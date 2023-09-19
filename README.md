@@ -25,5 +25,9 @@ Gender: 남
 
 
 
+https://github.com/yongjun-shin/wanted-pre-onboarding-frontend/assets/73512218/edd538c7-08cb-4dd0-8eb4-ab2692db2052
+
+
+
 
 
